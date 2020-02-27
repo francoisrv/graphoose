@@ -4,7 +4,7 @@ graphoose
 Transform a graphql type into a mongoose schema
 
 ```ts
-import graphoose from '@catch42/graphoose'
+import graphoose from 'graphoose'
 
 const user = gql`
 type User {

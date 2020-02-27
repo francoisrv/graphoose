@@ -1,15 +1,23 @@
 {
-  "name": "@catch42/graphoose",
+  "name": "graphoose",
   "private": false,
-  "version": "1.0.0",
+  "version": "1.0.1",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "rm -rf dist && tsc",
     "watch": "rm -rf dist && tsc -w",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/francoisrv/graphoose"
+  },
+  "keywords": ["graphql", "mongoose"],
+  "author": {
+    "name": "Pierre Drouillet",
+    "email": "franleweb@gmail.com"
   },
   "dependencies": {
     "apollo-server": "^2.10.1",

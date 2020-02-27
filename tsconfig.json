@@ -8,6 +8,8 @@
     "strict": true,
     "target": "es5",
     "types": ["node", "jest"],
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "declaration": true,
+    "declarationMap": true
   }
 }
