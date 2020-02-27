@@ -8,6 +8,7 @@ import graphoose from 'graphoose'
 
 const user = gql`
 type User {
+  _id: ID !
   email: String !
   isVerified: Boolean !
 }
