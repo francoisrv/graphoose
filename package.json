@@ -1,9 +1,10 @@
 {
   "name": "graphoose",
   "private": false,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "description": "Transform a graphql type into a mongoose schema",
   "scripts": {
     "build": "rm -rf dist && tsc",
     "watch": "rm -rf dist && tsc -w",
