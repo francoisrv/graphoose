@@ -38,6 +38,6 @@ mongoose.model('Foo', schema)
 ```graphql
 type Player {
   _id: ID !
-  team: ID ! @ref("Team")
+  team: ID ! @ref(model: "Team")
 }
 ```
