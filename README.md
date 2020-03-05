@@ -66,5 +66,7 @@ type Player {
 type Player {
   _id: ID !
   name: String ! @unique
+  age: Int ! @index
+  email: String ! @sparse
 }
 ```

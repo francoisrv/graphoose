@@ -11,7 +11,10 @@ interface Options {
 type DirectiveOverwrite = string | false
 
 interface Directives {
+  index?: DirectiveOverwrite
   ref?: DirectiveOverwrite
+  sparse?: DirectiveOverwrite
+  unique?: DirectiveOverwrite
 }
 
 interface DirectiveList {
@@ -49,8 +52,17 @@ function graphoose(source: string | DocumentNode, options: Options & DirectiveLi
 
   const fields: any = {}
 
-  const directives = {
-    ref: getDirectiveOverwrite('ref', options.directives)
+  const directives: Directives = {}
+
+  const directiveNames: Array<keyof Directives> = [
+    'index',
+    'ref',
+    'sparse',
+    'unique',
+  ]
+
+  for (const directiveName of directiveNames) {
+    directives[directiveName] = getDirectiveOverwrite(directiveName, options.directives)
   }
 
   if (definition.fields) {
@@ -70,6 +82,15 @@ function graphoose(source: string | DocumentNode, options: Options & DirectiveLi
                 // @ts-ignore
                 fieldDef.ref = arg.value.value
               }
+            }
+            if (directives.index  && directive.name.value === directives.index) {
+              fieldDef.index = true
+            }
+            if (directives.unique  && directive.name.value === directives.unique) {
+              fieldDef.unique = true
+            }
+            if (directives.sparse  && directive.name.value === directives.sparse) {
+              fieldDef.sparse = true
             }
           }
         }
