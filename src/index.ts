@@ -8,8 +8,10 @@ interface Options {
   returnsSchema?: true
 }
 
+type DirectiveOverwrite = string | false
+
 interface Directives {
-  ref?: string
+  ref?: DirectiveOverwrite
 }
 
 interface DirectiveList {
@@ -17,6 +19,18 @@ interface DirectiveList {
 }
 
 type Source = string | DocumentNode
+
+const getDirectiveOverwrite = (directive: keyof Directives, directives?: Directives): DirectiveOverwrite => {
+  if (directives && (directive in directives)) {
+    if (typeof directives[directive] === 'string') {
+      return directives[directive] as string
+    }
+    if (directives[directive] === false) {
+      return false
+    }
+  }
+  return directive
+}
 
 function graphoose(source: Source): Model<any>
 function graphoose(source: Source, options: { returnsFields: true } & DirectiveList): { [name: string]: SchemaTypeOpts<any> }
@@ -36,7 +50,7 @@ function graphoose(source: string | DocumentNode, options: Options & DirectiveLi
   const fields: any = {}
 
   const directives = {
-    ref: (options.directives && options.directives.ref) || 'ref'
+    ref: getDirectiveOverwrite('ref', options.directives)
   }
 
   if (definition.fields) {
@@ -50,13 +64,11 @@ function graphoose(source: string | DocumentNode, options: Options & DirectiveLi
         }
         if (field.directives) {
           for (const directive of field.directives) {
-            if (directives.ref && directive.name.value === directives.ref) {
-              if (directive.arguments) {
-                const arg = directive.arguments.find(arg => arg.name.value === 'model')
-                if (arg) {
-                  // @ts-ignore
-                  fieldDef.ref = arg.value.value
-                }
+            if (directives.ref && directive.name.value === directives.ref && directive.arguments) {
+              const arg = directive.arguments.find(arg => arg.name.value === 'model')
+              if (arg) {
+                // @ts-ignore
+                fieldDef.ref = arg.value.value
               }
             }
           }

@@ -1,14 +1,14 @@
 {
   "name": "graphoose",
   "private": false,
-  "version": "1.2.1",
+  "version": "1.4.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "description": "Transform a graphql type into a mongoose schema",
   "scripts": {
     "build": "rm -rf dist && tsc",
     "watch": "rm -rf dist && tsc -w",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "npm run build && npm test",
     "test": "jest dist"
   },
   "repository": {

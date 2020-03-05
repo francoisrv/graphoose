@@ -1,6 +1,10 @@
 CHANGELOG
 ===
 
+## v1.4.0 2020/03/05
+
+- Add invalidate directives
+
 ## v1.3.0 2020/03/05
 
 - Add renaming directives

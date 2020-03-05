@@ -22,4 +22,8 @@ describe('References', () => {
     const f = graphoose(PlayerLink, { returnsFields: true, directives: { ref: 'link' } })
     expect(f.team.ref).toEqual('Team')
   })
+  it('should not have reference', () => {
+    const f = graphoose(Player, { returnsFields: true, directives: { ref: false } })
+    expect(f.team).not.toHaveProperty('ref')
+  })
 })

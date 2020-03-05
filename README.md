@@ -49,6 +49,8 @@ type Player {
 graphoose(Player, { directives: { ref: 'link' } })
 ```
 
+You can also invalidate a directive like this `{ directives: { ref: false } }`
+
 ### References
 
 ```graphql
