@@ -32,3 +32,12 @@ graphoose('type F { email: String ! }', { returnsField: true }) // { email: { ty
 const schema =graphoose('type F { email: String }', { returnsSchema: true })
 mongoose.model('Foo', schema)
 ```
+
+## References
+
+```graphql
+type Player {
+  _id: ID !
+  team: ID ! @ref("Team")
+}
+```

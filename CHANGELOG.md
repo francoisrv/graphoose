@@ -1,7 +1,15 @@
 CHANGELOG
 ===
 
-## v1.1.0 2020/03/5
+## v1.2.0 2020/03/05
+
+- Add ref
+
+## v1.1.2 2020/03/05
+
+- Add tests for required
+
+## v1.1.0 2020/03/05
 
 - Add options
 - Add required

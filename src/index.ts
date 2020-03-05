@@ -11,7 +11,7 @@ interface Options {
 type Source = string | DocumentNode
 
 function graphoose(source: Source): Model<any>
-function graphoose(source: Source, options: { returnsFields: true }): object
+function graphoose(source: Source, options: { returnsFields: true }): { [name: string]: SchemaTypeOpts<any> }
 function graphoose(source: Source, options: { returnsSchema: true }): Schema
 
 function graphoose(source: string | DocumentNode, options: Options = {}): Model<any> | Schema | object {
@@ -35,6 +35,19 @@ function graphoose(source: string | DocumentNode, options: Options = {}): Model<
         }
         if (field.type.kind === 'NonNullType') {
           fieldDef.required = true
+        }
+        if (field.directives) {
+          for (const directive of field.directives) {
+            if (directive.name.value === 'ref') {
+              if (directive.arguments) {
+                const arg = directive.arguments.find(arg => arg.name.value === 'model')
+                if (arg) {
+                  // @ts-ignore
+                  fieldDef.ref = arg.value.value
+                }
+              }
+            }
+          }
         }
         fields[field.name.value] = fieldDef
       }
@@ -63,11 +76,3 @@ function graphoose(source: string | DocumentNode, options: Options = {}): Model<
 }
 
 export default graphoose
-
-const s = gql`
-type Foo {
-  email: String
-}
-`
-
-graphoose(s)
