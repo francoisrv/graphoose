@@ -22,20 +22,20 @@ Note: `graphoose` accepts either a string or a graphql object
 ### Return fields only
 
 ```ts
-graphoose('type F { email: String }', { returnsField: true }) // { email: { type: String } }
-graphoose('type F { email: String ! }', { returnsField: true }) // { email: { type: String, required: true } }
+graphoose('type F { email: String }', { returnsField: true })
+// { email: { type: String } }
 ```
 
 ### Return schema only
 
 ```ts
-const schema =graphoose('type F { email: String }', { returnsSchema: true })
+const schema = graphoose('type F { a: Int }', { returnsSchema: true })
 mongoose.model('Foo', schema)
 ```
 
 ## Directives
 
-You can use the following directives. You can find their declaratiosn [here](./directives.graphql)
+You can use the following directives. You can find their declarations [here](./directives.graphql)
 
 You can rename a directive by passing its new name, let's say you rename the directive `ref` to `link`:
 
@@ -68,5 +68,14 @@ type Player {
   name: String ! @unique
   age: Int ! @index
   email: String ! @sparse
+}
+```
+
+### Default value
+
+```graphql
+type Player {
+  _id: ID !
+  score: Int ! @default(value: 100)
 }
 ```

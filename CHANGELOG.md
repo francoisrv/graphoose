@@ -1,6 +1,10 @@
 CHANGELOG
 ===
 
+## v1.6.0 2020/03/05
+
+- Add default value
+
 ## v1.5.0 2020/03/05
 
 - Add indexes

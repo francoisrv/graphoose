@@ -1,3 +1,5 @@
+scalar MongooseType
+
 directive @ref(model: String !) on FIELD_DEFINITION
 
 directive @index on FIELD_DEFINITION
@@ -5,3 +7,5 @@ directive @index on FIELD_DEFINITION
 directive @unique on FIELD_DEFINITION
 
 directive @sparse on FIELD_DEFINITION
+
+directive @default(value: MongooseType) on FIELD_DEFINITION
