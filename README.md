@@ -33,11 +33,24 @@ const schema =graphoose('type F { email: String }', { returnsSchema: true })
 mongoose.model('Foo', schema)
 ```
 
-## References
+## Directives
+
+You can use the following directives. You can find their declaratiosn [here](./directives.graphql)
+
+### References
 
 ```graphql
 type Player {
   _id: ID !
   team: ID ! @ref(model: "Team")
+}
+```
+
+### Indexes
+
+```graphql
+type Player {
+  _id: ID !
+  name: String ! @unique
 }
 ```
