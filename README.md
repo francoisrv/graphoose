@@ -37,6 +37,18 @@ mongoose.model('Foo', schema)
 
 You can use the following directives. You can find their declaratiosn [here](./directives.graphql)
 
+You can rename a directive by passing its new name, let's say you rename the directive `ref` to `link`:
+
+```ts
+const Player = gql`
+type Player {
+  _id: ID !
+  team: ID ! @link(model: "Team")
+}
+`
+graphoose(Player, { directives: { ref: 'link' } })
+```
+
 ### References
 
 ```graphql

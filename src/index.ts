@@ -8,13 +8,21 @@ interface Options {
   returnsSchema?: true
 }
 
+interface Directives {
+  ref?: string
+}
+
+interface DirectiveList {
+  directives?: Directives
+}
+
 type Source = string | DocumentNode
 
 function graphoose(source: Source): Model<any>
-function graphoose(source: Source, options: { returnsFields: true }): { [name: string]: SchemaTypeOpts<any> }
-function graphoose(source: Source, options: { returnsSchema: true }): Schema
+function graphoose(source: Source, options: { returnsFields: true } & DirectiveList): { [name: string]: SchemaTypeOpts<any> }
+function graphoose(source: Source, options: { returnsSchema: true } & DirectiveList): Schema
 
-function graphoose(source: string | DocumentNode, options: Options = {}): Model<any> | Schema | object {
+function graphoose(source: string | DocumentNode, options: Options & DirectiveList = {}): Model<any> | Schema | object {
   const document = typeof source === 'string' ? gql(source) : source
 
   const [definition] = document.definitions as ObjectTypeDefinitionNode[]
@@ -27,6 +35,10 @@ function graphoose(source: string | DocumentNode, options: Options = {}): Model<
 
   const fields: any = {}
 
+  const directives = {
+    ref: (options.directives && options.directives.ref) || 'ref'
+  }
+
   if (definition.fields) {
     for (const field of definition.fields) {
       if (field.name.value !== '_id') {
@@ -38,7 +50,7 @@ function graphoose(source: string | DocumentNode, options: Options = {}): Model<
         }
         if (field.directives) {
           for (const directive of field.directives) {
-            if (directive.name.value === 'ref') {
+            if (directives.ref && directive.name.value === directives.ref) {
               if (directive.arguments) {
                 const arg = directive.arguments.find(arg => arg.name.value === 'model')
                 if (arg) {

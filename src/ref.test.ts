@@ -7,9 +7,19 @@ type Player {
 }
 `
 
+const PlayerLink = gql`
+type Player {
+  team: ID ! @link(model: "Team")
+}
+`
+
 describe('References', () => {
   it('should have references', () => {
     const f = graphoose(Player, { returnsFields: true })
+    expect(f.team.ref).toEqual('Team')
+  })
+  it('should have references under another name', () => {
+    const f = graphoose(PlayerLink, { returnsFields: true, directives: { ref: 'link' } })
     expect(f.team.ref).toEqual('Team')
   })
 })

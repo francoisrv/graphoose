@@ -1,6 +1,10 @@
 CHANGELOG
 ===
 
+## v1.3.0 2020/03/05
+
+- Add renaming directives
+
 ## v1.2.0 2020/03/05
 
 - Add ref
