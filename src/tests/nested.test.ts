@@ -24,14 +24,15 @@ describe('Nested', () => {
       }
     })
   })
-  it('should have an alias', () => {
+  it('should have a nested team', () => {
     expect(schema.team).toEqual({
       type: {
         name: {
           type: String,
           required: true
         }
-      }
+      },
+      required: true
     })
   })
 })

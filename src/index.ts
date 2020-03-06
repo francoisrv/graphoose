@@ -40,7 +40,7 @@ export const fields = (source: Source, options: Options = {}): Fields => {
       // Get field's mongoose type
       let type: MongooseAcceptedType | string | Fields = getType(field.type)
       // Apply nested types
-      if (type === 'string') {
+      if (typeof type === 'string') {
         if (options.nested && (fieldName in options.nested)) {
           type = options.nested[fieldName]
         } else {
