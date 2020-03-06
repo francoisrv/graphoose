@@ -4,6 +4,7 @@ import {
   Schema,
   SchemaTypeOpts,
   model as mongooseModel,
+  Types,
 } from "mongoose"
 
 import {
@@ -11,6 +12,7 @@ import {
   MongooseAcceptedType,
   Options,
   Source,
+  Directives,
 } from "./types"
 
 import {
@@ -19,6 +21,15 @@ import {
   getType,
   getTypeDefinition,
 } from "./utils"
+
+const flags: Array<keyof Directives> = [
+  'index',
+  'lowercase',
+  'sparse',
+  'trim',
+  'unique',
+  'uppercase',
+]
 
 /**
  * Generate mongoose' schema fields from a graphql type
@@ -57,6 +68,7 @@ export const fields = (source: Source, options: Options = {}): Fields => {
       // Aply directives
       if (field.directives) {
         for (const directive of field.directives) {
+          // @ref
           if (directives.ref && directive.name.value === directives.ref && directive.arguments) {
             const arg = directive.arguments.find(arg => arg.name.value === 'model')
             if (arg) {
@@ -64,6 +76,7 @@ export const fields = (source: Source, options: Options = {}): Fields => {
               fieldDef.ref = arg.value.value
             }
           }
+          // @default
           if (directives.default && directive.name.value === directives.default && directive.arguments) {
             const arg = directive.arguments.find(arg => arg.name.value === 'value')
             if (arg) {
@@ -71,6 +84,7 @@ export const fields = (source: Source, options: Options = {}): Fields => {
               fieldDef.default = arg.value.value
             }
           }
+          // @alias
           if (directives.alias && directive.name.value === directives.alias && directive.arguments) {
             const arg = directive.arguments.find(arg => arg.name.value === 'name')
             if (arg) {
@@ -78,14 +92,48 @@ export const fields = (source: Source, options: Options = {}): Fields => {
               fieldDef.alias = arg.value.value
             }
           }
-          if (directives.index  && directive.name.value === directives.index) {
-            fieldDef.index = true
+          // @minlength
+          if (directives.minlength && directive.name.value === directives.minlength && directive.arguments) {
+            const arg = directive.arguments.find(arg => arg.name.value === 'length')
+            if (arg) {
+              // @ts-ignore
+              fieldDef.minlength = Number(arg.value.value)
+            }
           }
-          if (directives.unique  && directive.name.value === directives.unique) {
-            fieldDef.unique = true
+          // @maxlength
+          if (directives.maxlength && directive.name.value === directives.maxlength && directive.arguments) {
+            const arg = directive.arguments.find(arg => arg.name.value === 'length')
+            if (arg) {
+              // @ts-ignore
+              fieldDef.maxlength = Number(arg.value.value)
+            }
           }
-          if (directives.sparse  && directive.name.value === directives.sparse) {
-            fieldDef.sparse = true
+          // @match
+          if (directives.match && directive.name.value === directives.match && directive.arguments) {
+            const expression = directive.arguments.find(arg => arg.name.value === 'expression')
+            const modifiers = directive.arguments.find(arg => arg.name.value === 'modifiers')
+            if (expression) {
+              // @ts-ignore
+              fieldDef.match = new RegExp(expression.value.value, modifiers ? modifiers.value.value : '')
+            }
+          }
+          // @enum
+          if (directives.enum && directive.name.value === directives.enum && directive.arguments) {
+            const arg = directive.arguments.find(arg => arg.name.value === 'values')
+            if (arg) {
+              // @ts-ignore
+              fieldDef.enum = arg.value.values.map(v => {
+                if (type === Number || type === Types.Decimal128) {
+                  return Number(v.value)
+                }
+                return v.value
+              })
+            }
+          }
+          for (const flag of flags) {
+            if (directives[flag]  && directive.name.value === directives[flag]) {
+              fieldDef[flag] = true
+            }
           }
         }
       }

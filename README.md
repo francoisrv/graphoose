@@ -38,6 +38,7 @@ mongoose.model('Foo', schema)
 | Graphql | Mongoose |
 |---------|---------|
 | Boolean | Boolean |
+| Buffer | Buffer |
 | Date | Date |
 | Float | Decimal128 |
 | ID | ObjectId |
@@ -48,6 +49,15 @@ mongoose.model('Foo', schema)
 ## Unsupported mongoose types
 
 - [Maps](https://github.com/graphql/graphql-spec/issues/101)
+
+## Unsupported GraphQL types
+
+There is no (yet) support for the following types:
+
+- Union
+- Enum
+
+You can emulate enum via the enum directive (see below)
 
 ## Nested schema
 
@@ -66,7 +76,7 @@ type Player {
 `
 const team = graphoose.fields(TEAM)
 graphoose.model(PLAYER, { nested: { team } })
-``` 
+```
 
 ## Directives
 
@@ -121,5 +131,17 @@ type Player {
 type Player {
   _id: ID !
   score: Int ! @alias(name: "points")
+}
+```
+
+### String
+
+```graphql
+type Player {
+  _id:        ID !
+  username:   String !  @lowercase @minlength(length: 2) @trim
+  lastname:   String    @uppercase @trim @maxlength(length: 100)
+  email:      String !  @match(expression: "^.+@.+\..+$" modifiers: "i")
+  power:      String    @enum(values: ["up" "down"])
 }
 ```

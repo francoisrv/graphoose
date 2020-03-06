@@ -12,6 +12,7 @@ type Foo {
   id: [String]
   id: [String!]!
   id: Date
+  id: Buffer
 }
 `
 // @ts-ignore
@@ -48,5 +49,9 @@ describe('getKind', () => {
 
   it('Date', () => {
     expect(getKind(fields[8].type)).toEqual('Date')
+  })
+
+  it('Buffer', () => {
+    expect(getKind(fields[9].type)).toEqual('Buffer')
   })
 })

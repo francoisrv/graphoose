@@ -19,10 +19,17 @@ export type DirectiveOverwrite = string | false
 export interface Directives {
   alias?: DirectiveOverwrite
   default?: DirectiveOverwrite
+  enum?: DirectiveOverwrite
   index?: DirectiveOverwrite
+  lowercase?: DirectiveOverwrite
+  match?: DirectiveOverwrite
+  maxlength?: DirectiveOverwrite
+  minlength?: DirectiveOverwrite
   ref?: DirectiveOverwrite
   sparse?: DirectiveOverwrite
+  trim?: DirectiveOverwrite
   unique?: DirectiveOverwrite
+  uppercase?: DirectiveOverwrite
 }
 
 /**
@@ -57,4 +64,5 @@ export type MongooseAcceptedType =
 | typeof Boolean
 | typeof Types.ObjectId
 | typeof Types.Decimal128
+| typeof Buffer
 | MongooseAcceptedType[]

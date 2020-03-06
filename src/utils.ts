@@ -52,10 +52,17 @@ export const getDirectives = (input: Directives): Directives => {
   const directiveNames: Array<keyof Directives> = [
     'alias',
     'default',
+    'enum',
     'index',
+    'lowercase',
+    'match',
+    'maxlength',
+    'minlength',
     'ref',
     'sparse',
+    'trim',
     'unique',
+    'uppercase',
   ]
 
   for (const directiveName of directiveNames) {
@@ -90,6 +97,7 @@ export const getType = (graphqlType: ASTNode): MongooseAcceptedType | string => 
   const type = getKind(graphqlType)
   switch (type) {
     case 'Boolean': return Boolean
+    case 'Buffer': return Buffer
     case 'Date': return Date
     case 'Float': return Types.Decimal128
     case 'ID': return Types.ObjectId
@@ -97,6 +105,7 @@ export const getType = (graphqlType: ASTNode): MongooseAcceptedType | string => 
     case 'String': return String
 
     case '[Boolean]': return [Boolean]
+    case '[Buffer]': return [Buffer]
     case '[Date]': return [Date]
     case '[Float]': return [Types.Decimal128]
     case '[ID]': return [Types.ObjectId]

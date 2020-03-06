@@ -1,6 +1,14 @@
 CHANGELOG
 ===
 
+## v2.2.0 2020/03/06
+
+- Add strings directives support
+
+## v2.1.0 2020/03/06
+
+- Add buffer support
+
 ## v2.0.0 2020/03/06
 
 - Change api from a function to a list of functions
