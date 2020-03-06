@@ -9,3 +9,5 @@ directive @unique on FIELD_DEFINITION
 directive @sparse on FIELD_DEFINITION
 
 directive @default(value: MongooseType) on FIELD_DEFINITION
+
+directive @alias(name: String) on FIELD_DEFINITION

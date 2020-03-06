@@ -1,5 +1,5 @@
 import { gql } from 'apollo-server'
-import { Schema } from 'mongoose'
+import { Types } from 'mongoose'
 import getType from '../getType'
 
 const schema = gql`
@@ -29,10 +29,10 @@ describe('getType', () => {
     expect(getType(fields[2].type)).toEqual(Number)
   })
   it('Float', () => {
-    expect(getType(fields[3].type)).toEqual(Number)
+    expect(getType(fields[3].type)).toEqual(Types.Decimal128)
   })
   it('ID', () => {
-    expect(getType(fields[4].type)).toEqual(Schema.Types.ObjectId)
+    expect(getType(fields[4].type)).toEqual(Types.ObjectId)
   })
 
   it('String!', () => {
@@ -45,5 +45,9 @@ describe('getType', () => {
 
   it('[String!]!', () => {
     expect(getType(fields[7].type)).toEqual([String])
+  })
+
+  it('Date', () => {
+    expect(getType(fields[8].type)).toEqual(Date)
   })
 })

@@ -10,6 +10,7 @@ const user = gql`
 type User {
   _id: ID !
   email: String !
+  dob: Date !
 }
 `
 const User = graphoose(user)
@@ -32,6 +33,17 @@ graphoose('type F { email: String }', { returnsField: true })
 const schema = graphoose('type F { a: Int }', { returnsSchema: true })
 mongoose.model('Foo', schema)
 ```
+
+## Scalars
+
+| Graphql | Mongose |
+|---------|---------|
+| Boolean | Boolean |
+| Date | Date |
+| Float | Decimal128 |
+| ID | ObjectId |
+| Int | Number |
+| String | String |
 
 ## Directives
 

@@ -1,7 +1,15 @@
 CHANGELOG
 ===
 
-## v1.7.0 2020/03/05
+## v1.8.1 2020/03/06
+
+- Add alias to directives
+
+## v1.8.0 2020/03/06
+
+- Float now returns Decimal128
+
+## v1.7.0 2020/03/06
 
 - Add alias
 

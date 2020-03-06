@@ -1,4 +1,5 @@
 import { gql } from 'apollo-server'
+import { Types }from 'mongoose'
 import graphoose from '..'
 
 const ScalarTypes = gql`
@@ -25,7 +26,7 @@ describe('Return fields', () => {
       expect(fields.integer).toEqual({ type: Number })
     })
     it('should parse floats', () => {
-      expect(fields.float).toEqual({ type: Number })
+      expect(fields.float).toEqual({ type: Types.Decimal128 })
     })
     it('should parse booleans', () => {
       expect(fields.boolean).toEqual({ type: Boolean })
