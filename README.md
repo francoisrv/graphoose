@@ -4,7 +4,7 @@ graphoose
 Transform a graphql type into a mongoose model
 
 ```ts
-import graphoose from 'graphoose'
+import * as graphoose from 'graphoose'
 
 const user = gql`
 type User {
@@ -13,7 +13,7 @@ type User {
   dob: Date !
 }
 `
-const User = graphoose(user)
+const User = graphoose.model(user)
 
 await User.findOne({ email: 'joe@doe.com' })
 ```
@@ -23,14 +23,13 @@ Note: `graphoose` accepts either a string or a graphql object
 ### Return fields only
 
 ```ts
-graphoose('type F { email: String }', { returnsField: true })
-// { email: { type: String } }
+graphoose.fields('type F { a: Int }') // { a: { type: Number } }
 ```
 
 ### Return schema only
 
 ```ts
-const schema = graphoose('type F { a: Int }', { returnsSchema: true })
+const F = graphoose.schema('type F { a: Int }')
 mongoose.model('Foo', schema)
 ```
 
@@ -44,6 +43,30 @@ mongoose.model('Foo', schema)
 | ID | ObjectId |
 | Int | Number |
 | String | String |
+| [String] | [String] |
+
+## Unsupported mongoose types
+
+- [Maps](https://github.com/graphql/graphql-spec/issues/101)
+
+## Nested schema
+
+```ts
+const TEAM = gql`
+type Team {
+  name: String !
+}
+`
+const PLAYER = gql`
+type Player {
+  _id: ID !
+  name: String !
+  team: Team !
+}
+`
+const team = graphoose.fields(TEAM)
+graphoose.model(PLAYER, { nested: { team } })
+``` 
 
 ## Directives
 
@@ -58,7 +81,7 @@ type Player {
   team: ID ! @link(model: "Team")
 }
 `
-graphoose(Player, { directives: { ref: 'link' } })
+graphoose.model(Player, { directives: { ref: 'link' } })
 ```
 
 You can also invalidate a directive like this `{ directives: { ref: false } }`

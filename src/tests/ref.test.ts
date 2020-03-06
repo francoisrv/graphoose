@@ -1,5 +1,5 @@
 import { gql } from 'apollo-server'
-import graphoose from '..'
+import * as graphoose from '..'
 
 const Player = gql`
 type Player {
@@ -15,15 +15,15 @@ type Player {
 
 describe('References', () => {
   it('should have references', () => {
-    const f = graphoose(Player, { returnsFields: true })
+    const f = graphoose.fields(Player)
     expect(f.team.ref).toEqual('Team')
   })
   it('should have references under another name', () => {
-    const f = graphoose(PlayerLink, { returnsFields: true, directives: { ref: 'link' } })
+    const f = graphoose.fields(PlayerLink, { directives: { ref: 'link' } })
     expect(f.team.ref).toEqual('Team')
   })
   it('should not have reference', () => {
-    const f = graphoose(Player, { returnsFields: true, directives: { ref: false } })
+    const f = graphoose.fields(Player, { directives: { ref: false } })
     expect(f.team).not.toHaveProperty('ref')
   })
 })

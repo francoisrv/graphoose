@@ -1,6 +1,10 @@
 CHANGELOG
 ===
 
+## v2.0.0 2020/03/06
+
+- Change api from a function to a list of functions
+
 ## v1.8.2 2020/03/06
 
 - Remove console log

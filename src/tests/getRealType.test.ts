@@ -1,5 +1,5 @@
 import { gql } from 'apollo-server'
-import getRealType from '../getRealType'
+import { getKind } from '../utils'
 
 const schema = gql`
 type Foo {
@@ -17,36 +17,36 @@ type Foo {
 // @ts-ignore
 const { fields } = schema.definitions[0]
 
-describe('getRealType', () => {
+describe('getKind', () => {
   it('String', () => {
-    expect(getRealType(fields[0].type)).toEqual('String')
+    expect(getKind(fields[0].type)).toEqual('String')
   })
   it('Boolean', () => {
-    expect(getRealType(fields[1].type)).toEqual('Boolean')
+    expect(getKind(fields[1].type)).toEqual('Boolean')
   })
   it('Int', () => {
-    expect(getRealType(fields[2].type)).toEqual('Int')
+    expect(getKind(fields[2].type)).toEqual('Int')
   })
   it('Float', () => {
-    expect(getRealType(fields[3].type)).toEqual('Float')
+    expect(getKind(fields[3].type)).toEqual('Float')
   })
   it('ID', () => {
-    expect(getRealType(fields[4].type)).toEqual('ID')
+    expect(getKind(fields[4].type)).toEqual('ID')
   })
 
   it('String!', () => {
-    expect(getRealType(fields[5].type)).toEqual('String')
+    expect(getKind(fields[5].type)).toEqual('String')
   })
 
   it('[String]', () => {
-    expect(getRealType(fields[6].type)).toEqual('[String]')
+    expect(getKind(fields[6].type)).toEqual('[String]')
   })
 
   it('[String]!', () => {
-    expect(getRealType(fields[7].type)).toEqual('[String]')
+    expect(getKind(fields[7].type)).toEqual('[String]')
   })
 
   it('Date', () => {
-    expect(getRealType(fields[8].type)).toEqual('Date')
+    expect(getKind(fields[8].type)).toEqual('Date')
   })
 })

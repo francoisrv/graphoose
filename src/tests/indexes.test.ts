@@ -1,5 +1,5 @@
 import { gql } from 'apollo-server'
-import graphoose from '..'
+import * as graphoose from '..'
 
 const Player = gql`
 type Player {
@@ -13,7 +13,7 @@ type Player {
 describe('Indexes', () => {
   let player: any
   beforeAll(() => {
-    player = graphoose(Player, { returnsFields: true })
+    player = graphoose.fields(Player)
   })
   it('should have index', () => {
     expect(player.age.index).toBe(true)

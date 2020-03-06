@@ -1,5 +1,5 @@
 import { gql } from 'apollo-server'
-import graphoose from '..'
+import * as graphoose from '..'
 
 const Player = gql`
 type Player {
@@ -11,7 +11,7 @@ type Player {
 describe('Default values', () => {
   let player: any
   beforeAll(() => {
-    player = graphoose(Player, { returnsFields: true })
+    player = graphoose.fields(Player)
   })
   it('should have a default value', () => {
     expect(player.name.default).toBe('joe')

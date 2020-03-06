@@ -1,6 +1,6 @@
 import { gql } from 'apollo-server'
 import { Types }from 'mongoose'
-import graphoose from '..'
+import * as graphoose from '..'
 
 const ScalarTypes = gql`
 type ScalarTypes {
@@ -17,7 +17,7 @@ describe('Return fields', () => {
   describe('Scalar Types', () => {
     let fields: any
     beforeAll(() => {
-      fields = graphoose(ScalarTypes, { returnsFields: true })
+      fields = graphoose.fields(ScalarTypes)
     })
     it('should parse strings', () => {
       expect(fields.string).toEqual({ type: String })
