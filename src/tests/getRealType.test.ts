@@ -1,5 +1,5 @@
 import { gql } from 'apollo-server'
-import getRealType from './getRealType'
+import getRealType from '../getRealType'
 
 const schema = gql`
 type Foo {

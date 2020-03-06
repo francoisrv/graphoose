@@ -79,3 +79,12 @@ type Player {
   score: Int ! @default(value: 100)
 }
 ```
+
+### Alias
+
+```graphql
+type Player {
+  _id: ID !
+  score: Int ! @alias(name: "points")
+}
+```

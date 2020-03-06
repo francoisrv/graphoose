@@ -1,6 +1,10 @@
 CHANGELOG
 ===
 
+## v1.7.0 2020/03/05
+
+- Add alias
+
 ## v1.6.0 2020/03/05
 
 - Add default value

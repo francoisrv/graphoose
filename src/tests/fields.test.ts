@@ -1,5 +1,5 @@
 import { gql } from 'apollo-server'
-import graphoose from '.'
+import graphoose from '..'
 
 const ScalarTypes = gql`
 type ScalarTypes {

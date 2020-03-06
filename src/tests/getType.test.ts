@@ -1,6 +1,6 @@
 import { gql } from 'apollo-server'
 import { Schema } from 'mongoose'
-import getType from './getType'
+import getType from '../getType'
 
 const schema = gql`
 type Foo {

@@ -11,6 +11,7 @@ interface Options {
 type DirectiveOverwrite = string | false
 
 interface Directives {
+  alias?: DirectiveOverwrite
   default?: DirectiveOverwrite
   index?: DirectiveOverwrite
   ref?: DirectiveOverwrite
@@ -37,6 +38,7 @@ const getDirectiveOverwrite = (directive: keyof Directives, directives?: Directi
 }
 
 function graphoose(source: Source): Model<any>
+function graphoose(source: Source, options: DirectiveList): Model<any>
 function graphoose(source: Source, options: { returnsFields: true } & DirectiveList): { [name: string]: SchemaTypeOpts<any> }
 function graphoose(source: Source, options: { returnsSchema: true } & DirectiveList): Schema
 
@@ -56,6 +58,7 @@ function graphoose(source: string | DocumentNode, options: Options & DirectiveLi
   const directives: Directives = {}
 
   const directiveNames: Array<keyof Directives> = [
+    'alias',
     'default',
     'index',
     'ref',
@@ -90,6 +93,13 @@ function graphoose(source: string | DocumentNode, options: Options & DirectiveLi
               if (arg) {
                 // @ts-ignore
                 fieldDef.default = arg.value.value
+              }
+            }
+            if (directives.alias && directive.name.value === directives.alias && directive.arguments) {
+              const arg = directive.arguments.find(arg => arg.name.value === 'name')
+              if (arg) {
+                // @ts-ignore
+                fieldDef.alias = arg.value.value
               }
             }
             if (directives.index  && directive.name.value === directives.index) {
