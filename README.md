@@ -1,7 +1,7 @@
 graphoose
 ===
 
-Transform a graphql type into a mongoose schema
+Transform a graphql type into a mongoose model
 
 ```ts
 import graphoose from 'graphoose'

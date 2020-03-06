@@ -3,13 +3,22 @@ import { DocumentNode, ObjectTypeDefinitionNode, isTypeDefinitionNode } from 'gr
 import mongoose, { Document, Model, Schema, SchemaTypeOpts } from 'mongoose'
 import getType from './getType'
 
+/**
+ * Options to specify return type
+ */
 interface Options {
   returnsFields?: true
   returnsSchema?: true
 }
 
+/**
+ * A directive format (either its name or false to ignore it)
+ */
 type DirectiveOverwrite = string | false
 
+/**
+ * List of directives
+ */
 interface Directives {
   alias?: DirectiveOverwrite
   default?: DirectiveOverwrite
@@ -19,12 +28,23 @@ interface Directives {
   unique?: DirectiveOverwrite
 }
 
+/**
+ * List of directives as passed inside options
+ */
 interface DirectiveList {
   directives?: Directives
 }
 
+/**
+ * The Graphql format accepted by graphoose
+ */
 type Source = string | DocumentNode
 
+/**
+ * Sets a directive value, either set by the user or else to its default value
+ * @param directive {String} A directive name
+ * @param directives {Directives} A list of directives
+ */
 const getDirectiveOverwrite = (directive: keyof Directives, directives?: Directives): DirectiveOverwrite => {
   if (directives && (directive in directives)) {
     if (typeof directives[directive] === 'string') {
@@ -42,7 +62,12 @@ function graphoose(source: Source, options: DirectiveList): Model<any>
 function graphoose(source: Source, options: { returnsFields: true } & DirectiveList): { [name: string]: SchemaTypeOpts<any> }
 function graphoose(source: Source, options: { returnsSchema: true } & DirectiveList): Schema
 
-function graphoose(source: string | DocumentNode, options: Options & DirectiveList = {}): Model<any> | Schema | object {
+/**
+ * Turns a Graphql type into a mongoose model
+ * @param source {String | DocumentNode} the graphql data
+ * @param options { Options & DirectuveList } additional options
+ */
+function graphoose(source: Source, options: Options & DirectiveList = {}): Model<any> | Schema | object {
   const document = typeof source === 'string' ? gql(source) : source
 
   const [definition] = document.definitions as ObjectTypeDefinitionNode[]
