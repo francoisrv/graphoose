@@ -122,8 +122,6 @@ function graphoose(source: string | DocumentNode, options: Options & DirectiveLi
     return fields
   }
 
-  console.log({fields})
-
   type T =
   & Document
   & typeof fields

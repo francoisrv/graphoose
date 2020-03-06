@@ -36,7 +36,7 @@ mongoose.model('Foo', schema)
 
 ## Scalars
 
-| Graphql | Mongose |
+| Graphql | Mongoose |
 |---------|---------|
 | Boolean | Boolean |
 | Date | Date |
