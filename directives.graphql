@@ -1,5 +1,7 @@
 scalar MongooseType
 
+scalar StringOrNumber
+
 directive @ref(model: String !) on FIELD_DEFINITION
 
 directive @index on FIELD_DEFINITION
@@ -17,3 +19,11 @@ directive @trim on FIELD_DEFINITION
 directive @default(value: MongooseType) on FIELD_DEFINITION
 
 directive @alias(name: String) on FIELD_DEFINITION
+
+directive @match(expression: String ! modifiers: String) on FIELD_DEFINITION
+
+directive @enum(values: [ StringOrNumber ]) on FIELD_DEFINITION
+
+directive @min(value: Float date: Date) on FIELD_DEFINITION
+
+directive @max(value: Float date: Date) on FIELD_DEFINITION

@@ -145,3 +145,14 @@ type Player {
   power:      String    @enum(values: ["up" "down"])
 }
 ```
+
+### Number an dates
+
+```graphql
+type Player {
+  _id:        ID !
+  score:      Int !     @min(value: 2) @max(value: 16)
+  epoch:      Int !     @enum(values: [2 4 16]) 
+  date:       Date !    @min(date: '2010-01-01' max: '2020-01-01')
+}
+```

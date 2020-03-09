@@ -130,6 +130,23 @@ export const fields = (source: Source, options: Options = {}): Fields => {
               })
             }
           }
+          // @min
+          if (directives.min && directive.name.value === directives.min && directive.arguments) {
+            const arg = directive.arguments.find(arg => arg.name.value === 'value')
+            if (arg) {
+              // @ts-ignore
+              fieldDef.min = Number(arg.value.value)
+            }
+          }
+          // @maxlength
+          if (directives.max && directive.name.value === directives.max && directive.arguments) {
+            const arg = directive.arguments.find(arg => arg.name.value === 'value')
+            if (arg) {
+              // @ts-ignore
+              fieldDef.max = Number(arg.value.value)
+            }
+          }
+          // flags
           for (const flag of flags) {
             if (directives[flag]  && directive.name.value === directives[flag]) {
               fieldDef[flag] = true

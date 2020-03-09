@@ -23,7 +23,9 @@ export interface Directives {
   index?: DirectiveOverwrite
   lowercase?: DirectiveOverwrite
   match?: DirectiveOverwrite
+  max?: DirectiveOverwrite
   maxlength?: DirectiveOverwrite
+  min?: DirectiveOverwrite
   minlength?: DirectiveOverwrite
   ref?: DirectiveOverwrite
   sparse?: DirectiveOverwrite
