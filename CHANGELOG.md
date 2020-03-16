@@ -1,6 +1,18 @@
 CHANGELOG
 ===
 
+## v2.3.3 2020/03/16
+
+- Back to returning model, using other method
+
+## v2.3.2 2020/03/16
+
+- Catch error if model exists
+
+## v2.3.1 2020/03/16
+
+- Return existing model if created
+
 ## v2.3.0 2020/03/06
 
 - Add number directives support

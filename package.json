@@ -1,7 +1,7 @@
 {
   "name": "graphoose",
   "private": false,
-  "version": "2.3.0",
+  "version": "2.3.3",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "description": "Transform a graphql type into a mongoose schema",

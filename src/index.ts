@@ -4,6 +4,7 @@ import {
   Schema,
   SchemaTypeOpts,
   model as mongooseModel,
+  models,
   Types,
 } from "mongoose"
 
@@ -180,6 +181,9 @@ export const schema = (source: Source, options: Options = {}): Schema<any> => {
 export const model = (source: Source, options: Options = {}): Model<any> => {
   const definition = getTypeDefinition(getSource(source))
   const { value: name } = definition.name
+  if (models[name]) {
+    return models[name]
+  }
   const schemaFields = fields(source, options)
   type T = Document & typeof schemaFields
   return mongooseModel<T>(name, new Schema<T>(schemaFields))
